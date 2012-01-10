@@ -26,14 +26,16 @@ module Todo
       File.open(filename, 'a') {|f| f.write("#{item}\n") }
     end
 
+    def remove term
+      remaining_items = items
+      remaining_items.delete_if{|item| item.match(/#{term}/i)}
+      update_items(remaining_items)
+    end
+
     def remove_at i
-      new_items = items
-      new_items.delete_at(i)
-      if new_items.length > 0
-        File.open(filename, 'w') {|f| f.write(new_items.map{|i| "#{i}\n"}.join())}
-      else
-        File.delete(filename)
-      end
+      remaining_items = items
+      remaining_items.delete_at i
+      update_items(remaining_items)
     end
 
     def items
@@ -51,6 +53,15 @@ module Todo
                     items.each_with_index.map{|item, i| "  #{i+1}: #{item}"}.join("\n")
                   end
       "#{@name}:\n#{items_str}"
+    end
+
+    protected
+    def update_items new_items
+      if new_items.length > 0
+        File.open(filename, 'w') {|f| f.write(new_items.map{|i| "#{i}\n"}.join())}
+      else
+        File.delete(filename)
+      end
     end
   end
 end

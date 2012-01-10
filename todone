@@ -17,4 +17,6 @@ list = Todo::List.find(list_name)
 if ARGV.length == 1  && ARGV[0].to_i > 0
   i = ARGV[0].to_i
   list.remove_at(i-1)
+else
+  list.remove(ARGV.join(' '))
 end
