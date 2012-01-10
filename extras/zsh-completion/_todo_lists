@@ -1,0 +1,20 @@
+#compdef todo todone
+
+_todo_lists() {
+  local curcontext="$curcontext" state line
+  typeset -A opt_args
+
+  _arguments \
+    '1: :->lists'\
+    '*: :->item'
+
+  case $state in
+    lists)
+      if [[ -n "$TODO_DIR" ]]; then
+        compadd "$@" `ls $TODO_DIR`
+      else
+        compadd "$@" `ls ~/.todo`
+      fi
+      ;;
+  esac 
+}
