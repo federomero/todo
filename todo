@@ -1,0 +1,26 @@
+#! /usr/bin/env ruby
+
+$: << File.expand_path(File.dirname( File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__ ))
+require 'lib/todo'
+
+list_name = ARGV.length > 0 ? ARGV.shift : 'all'
+
+`mkdir -p ~/.todo`
+
+if list_name == 'all'
+  Todo::List.all.each do |l|
+    puts l
+    puts
+  end
+else
+  list = Todo::List.find(list_name)
+  if ARGV.length == 0
+    puts list
+  elsif ARGV.length == 1  && ARGV[0].to_i > 0
+    i = ARGV[0].to_i
+    puts "#{list.name} #{list.items[i-1]}"
+  else
+    task = ARGV.join(' ')
+    list.add(task)
+  end
+end

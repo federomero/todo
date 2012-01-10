@@ -1,0 +1,17 @@
+#! /usr/bin/env ruby
+
+unless ARGV.length > 1
+  puts "Usage: todone <list> <item>"
+  exit 1
+end
+
+$: << File.expand_path(File.dirname( File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__ ))
+require 'lib/todo'
+
+list_name = ARGV.length > 0 ? ARGV.shift : 'all'
+
+list = Todo::List.find(list_name)
+if ARGV.length == 1  && ARGV[0].to_i > 0
+  i = ARGV[0].to_i
+  list.remove_at(i-1)
+end
