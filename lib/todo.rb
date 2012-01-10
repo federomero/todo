@@ -1,10 +1,13 @@
 module Todo
+  def self.base_dir
+    ENV['TODO_DIR'] || File.expand_path('~/.todo')
+  end
+
   class List
-    BASE_DIR = File.expand_path('~/.todo')
     attr_accessor :name
 
     def self.all
-      Dir.entries(BASE_DIR).select{|f| File.file?(File.join(BASE_DIR, f))}.map{|f| find(f)}
+      Dir.entries(Todo.base_dir).select{|f| File.file?(File.join(Todo.base_dir, f))}.map{|f| find(f)}
     end
 
     def self.find(name)
@@ -16,7 +19,7 @@ module Todo
     end
 
     def filename
-      File.join(BASE_DIR, @name)
+      File.join(Todo.base_dir, @name)
     end
 
     def add item

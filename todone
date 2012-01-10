@@ -8,6 +8,9 @@ end
 $: << File.expand_path(File.dirname( File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__ ))
 require 'lib/todo'
 
+# Ensure base_dir exists
+`mkdir -p #{Todo.base_dir}`
+
 list_name = ARGV.length > 0 ? ARGV.shift : 'all'
 
 list = Todo::List.find(list_name)

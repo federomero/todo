@@ -5,7 +5,8 @@ require 'lib/todo'
 
 list_name = ARGV.length > 0 ? ARGV.shift : 'all'
 
-`mkdir -p ~/.todo`
+# Ensure base_dir exists
+`mkdir -p #{Todo.base_dir}`
 
 if list_name == 'all'
   Todo::List.all.each do |l|
