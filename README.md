@@ -14,7 +14,7 @@ Examples:
 
     todo Groceries Get orange juice
 
-    todo todo Write readme
+    todo Outbox Update webpage
 
 To view a list items run:
 
@@ -40,8 +40,20 @@ Outputs:
       1: Get milk
       2: Get orange juice
 
-    todo:
-      1: Write readme
+    Outbox:
+      1: Update webpage
+
+To view a specific item run:
+
+    todo <list> <item-number>
+
+Example:
+
+    todo Groceries 2
+
+Outputs:
+
+    Groceries Get orange juice
 
 To mark an item as done run:
 
@@ -56,7 +68,7 @@ Examples:
 
     todone Groceries 2
 
-    todone todo readme
+    todone Outbox webpage
 
 
 Todo lists will be saved in the folder `~/.todo` by default. You can specify a different folder setting the `TODO_DIR` environment variable.
